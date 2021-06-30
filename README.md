@@ -19,32 +19,32 @@ The user is able to feed in the desired degree using the `-d` flag and the image
 ```
 
 ## Output examples
-Input:
-<img src="data/dog.bmp">
+Input:  
+<img src="data/dog.bmp">  
 
-Degree 16 Polynomial (max numpy can handle):
+Degree 16 Polynomial (max numpy can handle):  
 <img src="output/dog_16.png">
 
-Degree 8 Polynomial:
+Degree 8 Polynomial:  
 <img src="output/dog_8.png">
 
-Degree 4 Polynomial:
+Degree 4 Polynomial:  
 <img src="output/dog_4.png">
 
-Degree 1 Polynomial:
+Degree 1 Polynomial:  
 <img src="output/dog_1.png">
 
-Input:
+Input:  
 <img src="data/sun.jpg">
 
-Degree 16 Polynomial (max numpy can handle):
+Degree 16 Polynomial (max numpy can handle):  
 <img src="output/sun_16.png">
 
-Degree 8 Polynomial:
+Degree 8 Polynomial:  
 <img src="output/sun_8.png">
 
-Degree 4 Polynomial:
+Degree 4 Polynomial:  
 <img src="output/sun_4.png">
 
-Degree 1 Polynomial:
+Degree 1 Polynomial:  
 <img src="output/sun_1.png">
