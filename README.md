@@ -15,7 +15,9 @@ The user is able to feed in the desired degree using the `-d` flag and the image
 ```bash
 ./src/main.py
 ./src/main.py -d 8 # specify degree
+./src/main.py -d 5 -y # specify degree of 5 and perform in the y direction
 ./src/main.py -i ../data/my_favorite_image.jpg # specify image path
+./src/main.py -2d 2 # Specify that you want to performa 2d polyfit of degree 2
 ```
 
 ## Output examples
