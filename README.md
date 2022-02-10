@@ -18,6 +18,7 @@ The user is able to feed in the desired degree using the `-d` flag and the image
 ./src/main.py -d 5 -y # specify degree of 5 and perform in the y direction
 ./src/main.py -i ../data/my_favorite_image.jpg # specify image path
 ./src/main.py -2d 2 # Specify that you want to perform a 2d polyfit of degree 2
+./src/main.py -a 45 # Specify that you want to perform the fitting at an angle of 45 degrees
 ```
 
 ## Output examples
