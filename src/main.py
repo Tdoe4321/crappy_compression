@@ -4,6 +4,7 @@ import argparse
 
 from PIL import Image
 import numpy as np
+from scipy import ndimage
 
 def polyfit2d(x, y, z, kx=3, ky=3, order=None):
     '''
@@ -66,6 +67,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--degree', help='Degree of polynomial to fit image to', type=int, default=16)
     parser.add_argument('-y', '--yaxis', action="store_true", help='Perform polyfit over the y axis instead of x')
     parser.add_argument('-2d', '--degree2d', default=None, help="Turns on 2d polyfitting, must also provide an integer for the degree of the polynomial. This is typically very low (1-4)", type=int)
+    parser.add_argument('-a', '--angle', default=None, help="Provide an angle (in degrees) to fit the polynomial along. 0-180 up from the x-axis.", type=int)
     args = parser.parse_args()
 
     image = Image.open(args.image)
@@ -92,6 +94,27 @@ if __name__ == "__main__":
             soln, residuals, rank, s = polyfit2d(x, y, data[:,:,c], kx, ky)
             fitted_surf = np.polynomial.polynomial.polygrid2d(y, x, soln.reshape((kx+1,ky+1)))
             output[:,:,c] = fitted_surf
+
+    elif args.angle is not None:
+        # Expand and rotate the data we'll be working on
+        pad_vals= 60 # This probably should be an argument
+        tmp_data = np.pad(data, ((pad_vals, pad_vals), (pad_vals, pad_vals), (0, 0)), mode='reflect')
+        tmp_data = ndimage.rotate(tmp_data, angle=args.angle, reshape=False, mode='mirror')
+        output = np.zeros(tmp_data.shape)
+        print(tmp_data.shape)
+
+        # Apply compression
+        poly_mat = np.zeros((tmp_data.shape[0], deg + 1, tmp_data.shape[2]))
+        x = np.arange(tmp_data.shape[1])
+        for c in range(tmp_data.shape[2]): # for all the color channels
+            for row in range(tmp_data.shape[0]): # for all the rows
+                y = tmp_data[row,:,c]
+                poly_mat[row,:,c] = np.polyfit(x, y, deg)
+                output[row,:,c] = np.polyval(poly_mat[row,:,c], x)
+
+        # Unrotate and zoom image
+        output = ndimage.rotate(output, angle=-args.angle, reshape=False, mode='mirror')
+        output = output[pad_vals:-pad_vals, pad_vals:-pad_vals, :]
 
     # Perform the regular fitting of the image in x or y direction
     else:
@@ -121,5 +144,12 @@ if __name__ == "__main__":
     output = np.clip(output, 0, 255).astype('uint8')
 
     # Save image
-    Image.fromarray(output).save('../output/' + args.image.split("/")[-1].split(".")[0] + "_" + str(deg) + '.png')
+    out_str = '../output/' + args.image.split("/")[-1].split(".")[0] + "_" + str(deg)
+    if args.yaxis:
+        out_str = out_str + "_" + "y"
+    if args.degree2d:
+        out_str = out_str + "_" + "2d"
+    if args.angle:
+        out_str = out_str + "_" + str(args.angle) + "deg"
+    Image.fromarray(output).save(out_str + '.png')
 
