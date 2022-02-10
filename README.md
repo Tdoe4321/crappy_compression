@@ -29,10 +29,6 @@ Degree 16 Polynomial (max numpy can handle):
 
 <img src="output/dog_16.png">
 
-Degree 8 Polynomial:  
-
-<img src="output/dog_8.png">
-
 Degree 4 Polynomial:  
 
 <img src="output/dog_4.png">
@@ -49,10 +45,6 @@ Degree 16 Polynomial (max numpy can handle):
 
 <img src="output/sun_16.png">
 
-Degree 8 Polynomial:  
-
-<img src="output/sun_8.png">
-
 Degree 4 Polynomial:  
 
 <img src="output/sun_4.png">
@@ -60,3 +52,11 @@ Degree 4 Polynomial:
 Degree 1 Polynomial:  
 
 <img src="output/sun_1.png">
+
+2d Polynomial - degree 2:  
+
+<img src="output/sun_2_2d.png">
+
+Arbirtary angle 45deg - degree 16:  
+
+<img src="output/dog_16_45deg.png">
